@@ -1,5 +1,5 @@
 {
-    "debug": true,
+    "debug": false,
     "debugHost": "nil",
     "remain": 11,
     "http": {

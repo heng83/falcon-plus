@@ -1,11 +1,11 @@
 {
-    "debug": true,
+    "debug": false,
     "hostname": "",
     "ip": "",
     "plugin": {
         "enabled": false,
         "dir": "./plugin",
-        "git": "https://github.com/open-falcon/plugin.git",
+        "git": "https://github.com/heng83/plugin.git",
         "logs": "./logs"
     },
     "heartbeat": {
@@ -38,7 +38,7 @@
         "df.bytes.free": true,
         "df.bytes.total": true,
         "df.bytes.used": true,
-        "df.bytes.used.percent": true,
+        "df.bytes.used.percent": false,
         "df.inodes.total": true,
         "df.inodes.free": true,
         "df.inodes.used": true,
