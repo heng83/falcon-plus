@@ -22,7 +22,7 @@ import (
 )
 
 func configDfRoutes() {
-	http.HandleFunc("/page/df", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/page/df", func(w http.ResponseWriter, r *http.Request) {
 		mountPoints, err := nux.ListMountPoint()
 		if err != nil {
 			RenderMsgJson(w, err.Error())

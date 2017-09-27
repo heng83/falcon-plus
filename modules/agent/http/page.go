@@ -20,11 +20,14 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
+	"log"
 )
 
 func configPageRoutes() {
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/", func(w http.ResponseWriter, r *http.Request) {
+
+		log.Println("request :", r.URL.Path)
 		if strings.HasSuffix(r.URL.Path, "/") {
 			if !file.IsExist(filepath.Join(g.Root, "/public", r.URL.Path, "index.html")) {
 				http.NotFound(w, r)

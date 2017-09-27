@@ -6,6 +6,7 @@
     "maxIdle": 15,
     "listen": ":6030",
     "trustable": [""],
+    "admin": [""],
     "http": {
         "enabled": true,
         "listen": "%%HBS_HTTP%%"

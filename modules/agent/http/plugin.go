@@ -24,7 +24,7 @@ import (
 )
 
 func configPluginRoutes() {
-	http.HandleFunc("/plugin/update", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/plugin/update", func(w http.ResponseWriter, r *http.Request) {
 		if !g.Config().Plugin.Enabled {
 			w.Write([]byte("plugin not enabled"))
 			return
@@ -57,7 +57,7 @@ func configPluginRoutes() {
 		w.Write([]byte("success"))
 	})
 
-	http.HandleFunc("/plugin/reset", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/plugin/reset", func(w http.ResponseWriter, r *http.Request) {
 		if !g.Config().Plugin.Enabled {
 			w.Write([]byte("plugin not enabled"))
 			return
@@ -77,7 +77,7 @@ func configPluginRoutes() {
 		w.Write([]byte("success"))
 	})
 
-	http.HandleFunc("/plugins", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/plugins", func(w http.ResponseWriter, r *http.Request) {
 		//TODO: not thread safe
 		RenderDataJson(w, plugins.Plugins)
 	})

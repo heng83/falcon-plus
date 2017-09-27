@@ -23,16 +23,16 @@ import (
 )
 
 func configCpuRoutes() {
-	http.HandleFunc("/proc/cpu/num", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/proc/cpu/num", func(w http.ResponseWriter, r *http.Request) {
 		RenderDataJson(w, runtime.NumCPU())
 	})
 
-	http.HandleFunc("/proc/cpu/mhz", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/proc/cpu/mhz", func(w http.ResponseWriter, r *http.Request) {
 		data, err := nux.CpuMHz()
 		AutoRender(w, data, err)
 	})
 
-	http.HandleFunc("/page/cpu/usage", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/page/cpu/usage", func(w http.ResponseWriter, r *http.Request) {
 		if !funcs.CpuPrepared() {
 			RenderMsgJson(w, "not prepared")
 			return
@@ -57,7 +57,7 @@ func configCpuRoutes() {
 		RenderDataJson(w, [][10]string{item})
 	})
 
-	http.HandleFunc("/proc/cpu/usage", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/proc/cpu/usage", func(w http.ResponseWriter, r *http.Request) {
 		if !funcs.CpuPrepared() {
 			RenderMsgJson(w, "not prepared")
 			return

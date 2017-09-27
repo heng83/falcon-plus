@@ -48,8 +48,9 @@ func (t *Agent) ReportStatus(args *model.AgentReportRequest, reply *model.Simple
 }
 
 // 需要checksum一下来减少网络开销？其实白名单通常只会有一个或者没有，无需checksum
-func (t *Agent) TrustableIps(args *model.NullRpcRequest, ips *string) error {
-	*ips = strings.Join(g.Config().Trustable, ",")
+func (t *Agent) TrustableIps(args *model.NullRpcRequest, reply *model.TrustableIpResponse) error {
+	reply.Whites = strings.Join(g.Config().Trustable, ",")
+	reply.Admins = strings.Join(g.Config().Admin, ",")
 	return nil
 }
 

@@ -24,16 +24,16 @@ import (
 
 func configSystemRoutes() {
 
-	http.HandleFunc("/system/date", func(w http.ResponseWriter, req *http.Request) {
+	bindRoutes("/system/date", func(w http.ResponseWriter, req *http.Request) {
 		RenderDataJson(w, time.Now().Format("2006-01-02 15:04:05"))
 	})
 
-	http.HandleFunc("/page/system/uptime", func(w http.ResponseWriter, req *http.Request) {
+	bindRoutes("/page/system/uptime", func(w http.ResponseWriter, req *http.Request) {
 		days, hours, mins, err := nux.SystemUptime()
 		AutoRender(w, fmt.Sprintf("%d days %d hours %d minutes", days, hours, mins), err)
 	})
 
-	http.HandleFunc("/proc/system/uptime", func(w http.ResponseWriter, req *http.Request) {
+	bindRoutes("/proc/system/uptime", func(w http.ResponseWriter, req *http.Request) {
 		days, hours, mins, err := nux.SystemUptime()
 		if err != nil {
 			RenderMsgJson(w, err.Error())
@@ -47,7 +47,7 @@ func configSystemRoutes() {
 		})
 	})
 
-	http.HandleFunc("/page/system/loadavg", func(w http.ResponseWriter, req *http.Request) {
+	bindRoutes("/page/system/loadavg", func(w http.ResponseWriter, req *http.Request) {
 		cpuNum := runtime.NumCPU()
 		load, err := nux.LoadAvg()
 		if err != nil {
@@ -63,7 +63,7 @@ func configSystemRoutes() {
 		RenderDataJson(w, ret)
 	})
 
-	http.HandleFunc("/proc/system/loadavg", func(w http.ResponseWriter, req *http.Request) {
+	bindRoutes("/proc/system/loadavg", func(w http.ResponseWriter, req *http.Request) {
 		data, err := nux.LoadAvg()
 		AutoRender(w, data, err)
 	})

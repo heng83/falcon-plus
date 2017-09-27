@@ -106,3 +106,8 @@ func (this BuiltinMetricSlice) Swap(i, j int) {
 func (this BuiltinMetricSlice) Less(i, j int) bool {
 	return this[i].String() < this[j].String()
 }
+
+type TrustableIpResponse struct {
+	Whites   string
+	Admins	 string
+}

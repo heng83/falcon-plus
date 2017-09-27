@@ -20,7 +20,7 @@ import (
 )
 
 func configMemoryRoutes() {
-	http.HandleFunc("/page/memory", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/page/memory", func(w http.ResponseWriter, r *http.Request) {
 		mem, err := nux.MemInfo()
 		if err != nil {
 			RenderMsgJson(w, err.Error())
@@ -33,7 +33,7 @@ func configMemoryRoutes() {
 		RenderDataJson(w, []interface{}{mem.MemTotal / t, memUsed / t, memFree / t})
 	})
 
-	http.HandleFunc("/proc/memory", func(w http.ResponseWriter, r *http.Request) {
+	bindRoutes("/proc/memory", func(w http.ResponseWriter, r *http.Request) {
 		mem, err := nux.MemInfo()
 		if err != nil {
 			RenderMsgJson(w, err.Error())

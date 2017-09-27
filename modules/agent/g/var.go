@@ -182,21 +182,27 @@ func SetReportProcs(procs map[string]map[int]string) {
 }
 
 var (
-	ips     []string
+	whites  []string
+	admins  []string
 	ipsLock = new(sync.Mutex)
 )
 
-func TrustableIps() []string {
+func TrustableIps(admin bool) []string {
 	ipsLock.Lock()
 	defer ipsLock.Unlock()
-	return ips
+	if admin {
+		return admins
+	}
+	return whites
 }
 
-func SetTrustableIps(ipStr string) {
-	arr := strings.Split(ipStr, ",")
+func SetTrustableIps(wipStr string, aipStr string) {
+	wArr := strings.Split(wipStr, ",")
+	aArr := strings.Split(aipStr, ",")
 	ipsLock.Lock()
 	defer ipsLock.Unlock()
-	ips = arr
+	whites = wArr
+	admins = aArr
 }
 
 func IsTrustable(remoteAddr string) bool {
@@ -210,5 +216,19 @@ func IsTrustable(remoteAddr string) bool {
 		return true
 	}
 
-	return slice.ContainsString(TrustableIps(), ip)
+	return slice.ContainsString(TrustableIps(false), ip)
+}
+
+func IsAdministrator(remoteAddr string) bool {
+	ip := remoteAddr
+	idx := strings.LastIndex(remoteAddr, ":")
+	if idx > 0 {
+		ip = remoteAddr[0:idx]
+	}
+
+	if ip == "127.0.0.1" {
+		return true
+	}
+
+	return slice.ContainsString(TrustableIps(true), ip)
 }

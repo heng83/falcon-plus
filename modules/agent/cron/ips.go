@@ -34,13 +34,13 @@ func syncTrustableIps() {
 	for {
 		time.Sleep(duration)
 
-		var ips string
-		err := g.HbsClient.Call("Agent.TrustableIps", model.NullRpcRequest{}, &ips)
+		var resp model.TrustableIpResponse
+		err := g.HbsClient.Call("Agent.TrustableIps", model.NullRpcRequest{}, &resp)
 		if err != nil {
 			log.Println("ERROR: call Agent.TrustableIps fail", err)
 			continue
 		}
 
-		g.SetTrustableIps(ips)
+		g.SetTrustableIps(resp.Whites, resp.Admins)
 	}
 }
