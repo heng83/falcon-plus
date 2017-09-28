@@ -24,7 +24,7 @@ import (
 
 func configAdminRoutes() {
 	bindRoutes("/exit", func(w http.ResponseWriter, r *http.Request) {
-		if g.IsTrustable(r.RemoteAddr) {
+		if g.IsAdministrator(r.RemoteAddr) {
 			w.Write([]byte("exiting..."))
 			go func() {
 				time.Sleep(time.Second)
@@ -36,7 +36,7 @@ func configAdminRoutes() {
 	})
 
 	bindRoutes("/config/reload", func(w http.ResponseWriter, r *http.Request) {
-		if g.IsTrustable(r.RemoteAddr) {
+		if g.IsAdministrator(r.RemoteAddr) {
 			g.ParseConfig(g.ConfigFile)
 			RenderDataJson(w, g.Config())
 		} else {

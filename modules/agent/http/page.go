@@ -26,8 +26,6 @@ import (
 func configPageRoutes() {
 
 	bindRoutes("/", func(w http.ResponseWriter, r *http.Request) {
-
-		log.Println("request :", r.URL.Path)
 		if strings.HasSuffix(r.URL.Path, "/") {
 			if !file.IsExist(filepath.Join(g.Root, "/public", r.URL.Path, "index.html")) {
 				http.NotFound(w, r)
