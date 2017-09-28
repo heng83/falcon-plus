@@ -20,7 +20,6 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
-	"log"
 )
 
 func configPageRoutes() {
